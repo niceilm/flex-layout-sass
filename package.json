@@ -1,0 +1,27 @@
+{
+  "name": "flex-layout-sass",
+  "version": "1.0.1",
+  "description": "angular flex-layout for sass version",
+  "keywords": [
+    "SASS",
+    "scss",
+    "flex-layout",
+    "angular flex-layout",
+    "flex",
+    "layout"
+  ],
+  "main": "_mixin.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niceilm/flex-layout-sass.git"
+  },
+  "author": "Flynn <niceilm@naver.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/niceilm/flex-layout-sass/issues"
+  },
+  "homepage": "https://github.com/niceilm/flex-layout-sass#readme"
+}
