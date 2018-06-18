@@ -53,7 +53,7 @@ $_fx-layout-current-direction: null;
   $basis: 0%;
   $min-value: null;
   $max-value: null;
-  $max-cross: if($parent-direction == column or $parent-direction == column-reverse, height, width);
+  $max-cross: if($parent-direction == column or $parent-direction == column-reverse, width, height);
 
   @if type-of($params) == string {
     @include _support-value($params, ('', none, nogrow, grow, initial, auto, noshrink));

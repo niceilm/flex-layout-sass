@@ -1,6 +1,6 @@
 {
   "name": "flex-layout-sass",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "angular flex-layout for sass version",
   "keywords": [
     "SASS",
@@ -12,7 +12,8 @@
   ],
   "main": "_mixin.scss",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "npm publish"
   },
   "repository": {
     "type": "git",
