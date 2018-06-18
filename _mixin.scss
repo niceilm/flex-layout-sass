@@ -28,7 +28,7 @@ $_fx-layout-current-direction: null;
   @include _support-value($direction, (row, column, row-reverse, column-reverse));
   @include _support-value($wrap, (wrap, null));
 
-  $max-cross: if($direction == column or $direction == column-reverse, height, width);
+  $max-cross: if($direction == column or $direction == column-reverse, width, height);
   $_fx-layout-current-direction: $direction !global;
 
   display: flex;
@@ -53,7 +53,7 @@ $_fx-layout-current-direction: null;
   $basis: 0%;
   $min-value: null;
   $max-value: null;
-  $max-cross: if($parent-direction == column or $parent-direction == column-reverse, width, height);
+  $max-cross: if($parent-direction == column or $parent-direction == column-reverse, height, width);
 
   @if type-of($params) == string {
     @include _support-value($params, ('', none, nogrow, grow, initial, auto, noshrink));
