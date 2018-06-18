@@ -14,11 +14,7 @@
   @include _support-value($value, (null, start, center, end, space-around, space-between, space-evenly));
 
   @if $value != null {
-    @if $value == 'start' {
-      $value: flex-start;
-    } @else if $value == 'end' {
-      $value: flex-end;
-    }
+    $value: if($value == start or $value == end, flex-#{$value}, $value);
     justify-content: $value;
   }
 }
@@ -27,11 +23,7 @@
   @include _support-value($value, (null, start, center, end, space-around, space-between, space-evenly, stretch));
 
   @if $value != null {
-    @if $value == 'start' {
-      $value: flex-start;
-    } @else if $value == 'end' {
-      $value: flex-end;
-    }
+    $value: if($value == start or $value == end, flex-#{$value}, $value);
     align-content: $value;
     align-items: $value;
   }
@@ -40,14 +32,11 @@
 @mixin _fx-layout-gap($value, $direction) {
   @if $value != null {
     @include _support-value(unit($value), ('%', px, vh, vw));
-    $margin-direction: right;
-    @if $direction == column {
-      $margin-direction: bottom;
-    } @else if $direction == column-reverse {
-      $margin-direction: top;
-    } @else if $direction == row-reverse {
-      $margin-direction: left;
-    }
+
+    $margin-direction: if($direction == column, bottom,
+        if ($direction == column-reverse, top,
+        if($direction == row-reverse, left,
+                right)));
 
     & > *:not(:last-child) {
       margin-#{$margin-direction}: $value;
@@ -60,4 +49,3 @@
     flex-wrap: $value;
   }
 }
-

@@ -1,11 +1,12 @@
 @import "util";
 
+$_fx-layout-current-direction: null;
+
 @mixin fx-layout($direction-wrap: row, $axis: null, $layout-gap-value: null) {
   $direction: row;
   $wrap: null;
   $main-axis-value: null;
   $cross-axis-value: null;
-  $max-cross: height;
 
   @if type-of($direction-wrap) == string {
     $direction: $direction-wrap;
@@ -27,9 +28,8 @@
   @include _support-value($direction, (row, column, row-reverse, column-reverse));
   @include _support-value($wrap, (wrap, null));
 
-  @if $direction == column or $direction == column-reverse {
-    $max-cross: height;
-  }
+  $max-cross: if($direction == column or $direction == column-reverse, height, width);
+  $_fx-layout-current-direction: $direction !global;
 
   display: flex;
   box-sizing: border-box;
@@ -43,18 +43,17 @@
   }
 }
 
-@mixin fx-flex($params: '', $direction: row) {
-  @include _support-value($direction, (row, column));
+@mixin fx-flex($params: '', $parent-direction: null) {
+  $parent-direction: if($parent-direction != null, $parent-direction,
+      if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row));
+  @include _support-value($parent-direction, (row, column, row-reverse, column-reverse));
 
   $grow: 1;
   $shrink: 1;
   $basis: 0%;
   $min-value: null;
   $max-value: null;
-  $max-cross: width;
-  @if $direction == column {
-    $max-cross: height;
-  }
+  $max-cross: if($parent-direction == column or $parent-direction == column-reverse, height, width);
 
   @if type-of($params) == string {
     @include _support-value($params, ('', none, nogrow, grow, initial, auto, noshrink));
@@ -90,15 +89,10 @@
   } @else if type-of($params) == number {
     @include _support-value(unit($params), ('', '%', px, vh, vw));
     @if $params != 0 {
-      @if unitless($params) {
-        $params: $params + '%';
-      }
+      $params: if(unitless($params), $params + '%', $params);
       $basis: $params;
       $max-value: $basis;
-
-      @if unit($basis) == px {
-        $min-value: $basis;
-      }
+      $min-value: if(unit($basis) == px, $basis, null);
     }
   } @else if type-of($params) == list {
     $grow: nth($params, 1);
@@ -124,29 +118,22 @@
   order: $order;
 }
 
-@mixin fx-flex-offset($offset, $direction: row) {
-  @include _support-value(unit($offset), ('', '%', px, vh, vw));
-  @include _support-value($direction, (row, column, row-reverse, column-reverse));
+@mixin fx-flex-offset($offset, $parent-direction: null) {
+  $parent-direction: if($parent-direction != null, $parent-direction,
+      if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row));
 
-  @if unitless($offset) {
-    $offset: $offset + '%';
-  }
-  $margin-direction: 'left';
-  @if $direction == column or $direction == column-reverse {
-    $margin-direction: 'top';
-  }
+  @include _support-value(unit($offset), ('', '%', px, vh, vw));
+  @include _support-value($parent-direction, (row, column, row-reverse, column-reverse));
+
+  $offset: if(unitless($offset), $offset + '%', $offset);
+  $margin-direction: if($parent-direction == column or $parent-direction == column-reverse, top, left);
 
   margin-#{$margin-direction}: $offset;
 }
 
 @mixin fx-flex-align($align) {
   @include _support-value($align, (start, center, end, baseline, stretch));
-
-  @if $align == start {
-    $align: flex-start;
-  } @else if $align == end {
-    $align: flex-end;
-  }
+  $align: if($align == start or $align == end, flex-#{$align}, $align);
   align-self: $align;
 }
 

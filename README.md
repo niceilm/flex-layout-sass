@@ -38,9 +38,10 @@ npm i flex-layout-sass
 ```
 
 ## fx-flex
-`@include fx-flex(<flex-value>, [direction]);`
+`@include fx-flex(<flex-value>, [parent-direction]);`
 * flex-value: "" | px | % | vw | vh | <grow> <shrink> <basis>,;
-* direction: row;
+* parent-direction: row, column, row-reverse, column-reverse default row;
+    *  If parent-direction is not set, the last direction value of fx-layout is used.
 
 ### references
 * [fxFlex](https://github.com/angular/flex-layout/wiki/fxFlex-API)
@@ -80,8 +81,10 @@ npm i flex-layout-sass
 ```
 
 ## fx-flex-offset
-`@include fx-flex-offset(<offset-value>);`
+`@include fx-flex-offset(<offset-value>, [parent-direction]);`
 * offset-value: % (default) | px | vw | vh
+* parent-direction: row, column, row-reverse, column-reverse default row;
+    *  If parent-direction is not set, the last direction value of fx-layout is used.
 
 ### refereces
 * [fxFlexOffset](https://github.com/angular/flex-layout/wiki/fxFlexOffset-API)
