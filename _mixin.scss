@@ -44,8 +44,8 @@ $_fx-layout-current-direction: null;
 }
 
 @mixin fx-flex($params: '', $parent-direction: null) {
-  $parent-direction: if($parent-direction != null, $parent-direction, row);
-  $parent-direction: if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row);
+  $parent-direction: if($parent-direction != null, $parent-direction,
+    if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row));
 
   @include _support-value($parent-direction, (row, column, row-reverse, column-reverse));
 
@@ -120,8 +120,8 @@ $_fx-layout-current-direction: null;
 }
 
 @mixin fx-flex-offset($offset, $parent-direction: null) {
-  $parent-direction: if($parent-direction != null, $parent-direction, row);
-  $parent-direction: if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row);
+  $parent-direction: if($parent-direction != null, $parent-direction,
+    if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row));
 
   @include _support-value(unit($offset), ('', '%', px, vh, vw));
   @include _support-value($parent-direction, (row, column, row-reverse, column-reverse));
