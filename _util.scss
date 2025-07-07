@@ -34,13 +34,17 @@
     @include _support-value(unit($value), ('%', px, vh, vw));
     @include _support-value($direction, (column, row, column-reverse, row-reverse));
 
-    $margin-direction: if($direction == column, bottom, null);
-    $margin-direction: if($direction == column-reverse, top, $margin-direction);
-    $margin-direction: if($direction == row-reverse, left, $margin-direction);
-    $margin-direction: if($direction == row, right, $margin-direction);
+    gap: $value;
 
-    & > *:not(:last-child) {
-      margin-#{$margin-direction}: $value;
+    @supports not (gap: $value) {
+      $margin-direction: if($direction == column, bottom, null);
+      $margin-direction: if($direction == column-reverse, top, $margin-direction);
+      $margin-direction: if($direction == row-reverse, left, $margin-direction);
+      $margin-direction: if($direction == row, right, $margin-direction);
+
+      & > *:not(:last-child) {
+        margin-#{$margin-direction}: $value;
+      }
     }
   }
 }
