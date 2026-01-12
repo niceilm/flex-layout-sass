@@ -45,7 +45,7 @@ $_fx-layout-current-direction: null;
 
 @mixin fx-flex($params: '', $parent-direction: null) {
   $parent-direction: if($parent-direction != null, $parent-direction,
-    if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row));
+      if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row));
 
   @include _support-value($parent-direction, (row, column, row-reverse, column-reverse));
 
@@ -121,13 +121,13 @@ $_fx-layout-current-direction: null;
 
 @mixin fx-flex-offset($offset, $parent-direction: null) {
   $parent-direction: if($parent-direction != null, $parent-direction,
-    if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row));
+      if($_fx-layout-current-direction != null, $_fx-layout-current-direction, row));
 
   @include _support-value(unit($offset), ('', '%', px, vh, vw));
   @include _support-value($parent-direction, (row, column, row-reverse, column-reverse));
 
   $offset: if(unitless($offset), $offset + '%', $offset);
-  $margin-direction: if($parent-direction == column or $parent-direction == column-reverse, top, left);
+  $margin-direction: if($parent-direction == column or $parent-direction == column-reverse, block-start, inline-start);
 
   margin-#{$margin-direction}: $offset;
 }

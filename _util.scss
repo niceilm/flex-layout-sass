@@ -34,10 +34,10 @@
     @include _support-value(unit($value), ('%', px, vh, vw));
     @include _support-value($direction, (column, row, column-reverse, row-reverse));
 
-    $margin-direction: if($direction == column, bottom, null);
-    $margin-direction: if($direction == column-reverse, top, $margin-direction);
-    $margin-direction: if($direction == row-reverse, left, $margin-direction);
-    $margin-direction: if($direction == row, right, $margin-direction);
+    $margin-direction: if($direction == column, block-end, null);
+    $margin-direction: if($direction == column-reverse, block-start, $margin-direction);
+    $margin-direction: if($direction == row-reverse, inline-start, $margin-direction);
+    $margin-direction: if($direction == row, inline-end, $margin-direction);
 
     & > *:not(:last-child) {
       margin-#{$margin-direction}: $value;
